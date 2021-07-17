@@ -1,0 +1,50 @@
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.info-post{
+    font-size: 11px;
+}
+
+.penulis{
+    margin-top: 20px;
+    margin-bottom: -5px;
+}
+
+.img-post{
+    margin: 30px 0;
+    max-height: 480px;
+    max-width: 640px;
+    border-radius: 10px;
+}
+
+label{
+    font-weight: 500;
+}
+.btn-comment{
+    border: 1px solid #000;
+    color: #000;
+}
+.btn-comment:hover{
+    background-color: transparent;
+    color: blue;
+    outline: none;
+}
+.btn-comment:focus{
+    outline: 0 !important;
+}
+
+.img-user{
+    width: 50px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.time{
+    font-size: 11px;
+}
