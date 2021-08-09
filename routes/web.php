@@ -7,16 +7,16 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
-
+use App\Models\Category;
 
 Route::middleware('role:admin')->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 });
 
-Route::get('search', [PostController::class, 'search'])->name('search');
 Route::get('posts', [PostController::class, 'index'])->name('posts');
+Route::get('posts/search', [PostController::class, 'search'])->name('search');
 Route::get('categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
-Route::prefix('posts')->group(function() {
+Route::middleware('auth')->prefix('posts')->group(function() {
     Route::get('create', [PostController::class, 'create'])->name('posts.create');
     Route::post('create', [PostController::class, 'store']);
 
@@ -27,12 +27,18 @@ Route::prefix('posts')->group(function() {
 
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-    Route::post('/categories', [CategoryController::class, 'store']);
-
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('/categories/create', [CategoryController::class, 'store']);
+    Route::get('/categories/{category:slug}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('/categories/{category:slug}/edit', [CategoryController::class, 'update']);
+    Route::delete('/categories/{category:slug}', [CategoryController::class, 'destroy'])->name('categories.delete');
 
     Route::get('/tags', [TagController::class, 'index'])->name('tags');
-    Route::post('/tags', [TagController::class, 'store']);
-
+    Route::get('/tags/create', [TagController::class, 'create'])->name('tags.create');
+    Route::post('/tags/create', [TagController::class, 'store']);
+    Route::get('/tags/{tag:slug}/edit', [TagController::class, 'edit'])->name('tags.edit');
+    Route::put('/tags/{tag:slug}/edit', [TagController::class, 'update']);
+    Route::delete('/tags/{tag:slug}', [TagController::class, 'destroy'])->name('tags.delete');
 });
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 Route::post('posts/{post:slug}/comment', [CommentController::class, 'comment'])->name('posts.comment');

@@ -83,6 +83,11 @@
                             </div>
                         </div>
                     </form>
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-link" href="{{ route('login') }}">
+                            {{ __('Already have an account? Login.') }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

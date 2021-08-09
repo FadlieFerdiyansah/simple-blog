@@ -22,7 +22,7 @@
             </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+                <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" autofocus>
                 @error('title')
                     <div class="text-danger">
                         {{ $message }}
@@ -54,7 +54,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="category" class="mb-2">category</label>
+                <label for="category" class="mb-2">Category</label>
                 <select name="category" id="category" class="form-control">
                     <option disabled selected>Choose a category</option>
                     @foreach ($categories as $category)

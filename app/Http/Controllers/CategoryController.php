@@ -15,6 +15,11 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('posts.categories.create');
+    }
+
     public function store()
     {
         request()->validate([
@@ -27,6 +32,33 @@ class CategoryController extends Controller
         ]);
 
         session()->flash('success', 'Successfully added a category');
+        return back();
+    }
+
+    public function edit(Category $category)
+    {
+        return view('posts.categories.edit',compact('category'));
+    }
+
+    public function update(Category $category)
+    {
+        request()->validate([
+            'name' => 'required'
+        ]);
+
+        $category->update([
+            'name' => request('name'),
+            'slug' => \Str::slug(request('name'))
+        ]);
+
+        session()->flash('success', 'Successfully added a category');
+        return redirect(route('categories'));
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        session()->flash('success', 'Successfully deleted a category');
         return back();
     }
 

@@ -32,7 +32,7 @@
     @forelse ($posts as $post)
         <div class="col-md-3 mb-4">
             <div class="card shadow">
-                <img src="{{ $post->takeImg }}" class="card-img-top">
+                <img src="{{ $post->takeImg }}" class="card-img-top" style="height: 200px; object-fit: cover;">
                 <div class="card-body">
                     <p class="card-title font-weight-bold">{{ $post->title }}</p>
                     <p class="card-text">{{ Str::limit($post->body, 100, '.') }}</p>

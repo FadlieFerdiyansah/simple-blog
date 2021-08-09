@@ -13,7 +13,8 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->query;
+
+        $query = request('query');
         return view('posts.index', [
             'posts' => Post::where("title", "like" , "%$query%")->latest()->paginate(10),
             'result' => Post::where("title", "like" , "%$query%")->latest()->paginate(10)
@@ -68,6 +69,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
         return view('posts.edit', [
             'post' => $post,
             'tags' => Tag::all(),
@@ -98,6 +100,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
         Storage::delete($post->image);
         $post->delete();
 

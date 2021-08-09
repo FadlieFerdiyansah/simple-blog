@@ -12,21 +12,25 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <form class="d-flex" method="get" action="{{ route('search') }}">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" value="{{ request('query') ? request('query') : null }}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" value="{{ request('query') ?? request('query') }}">
                     <button class="btn btn-dark btn-sm" type="submit">Search</button>
                 </form>
             </li>
 
-            
             <div class="col-sm d-flex ml-5 col-md d-flex">
-                <li class="nav-item">
+                @hasanyrole('admin')
+                    <li class="nav-item{{ request()->routeIs('dashboard') ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                    </li>
+                @endhasanyrole
+                <li class="nav-item{{ request()->routeIs('posts') ? ' active' : '' }}">
                     <a class="nav-link" href="{{ route('posts') }}">{{ __('Posts') }}</a>
                 </li>
                 @auth
-                    <li class="nav-item">
+                    <li class="nav-item{{ request()->routeIs('categories') ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('categories') }}">{{ __('Categories') }}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item{{ request()->routeIs('tags') ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('tags') }}">{{ __('Tags') }}</a>
                     </li>
                 @endauth
@@ -39,23 +43,20 @@
               <!-- Authentication Links -->
               @guest
                   @if (Route::has('login'))
-                      <li class="nav-item">
+                      <li class="nav-item{{ request()->routeIs('login') ? ' active' : '' }}">
                           <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                       </li>
                   @endif
                   
                   @if (Route::has('register'))
-                      <li class="nav-item">
+                      <li class="nav-item{{ request()->routeIs('register') ? ' active' : '' }}">
                           <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                       </li>
                   @endif
               @else
 
-                @hasanyrole('admin')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
-                    </li>
-                @endhasanyrole
+                
+                
 
                   <li class="nav-item dropdown">
                       <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

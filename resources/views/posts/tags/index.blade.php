@@ -2,7 +2,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md">
+            <div class="d-flex justify-content-end mb-2">
+                <a href="{{ route('tags.create') }}" class="btn btn-primary btn-sma">Create Tag</a>
+            </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -17,13 +20,13 @@
                             <td>{{ $tags->count() * ($tags->currentPage() - 1) + $loop->iteration  }}</td>
                             <td>{{ $tag->name }}</td>
                             <td>
-                                <div class="btn btn-info">
-                                    Edit
-                                </div>
+                                <a href="{{ route('tags.edit',$tag) }}" class="btn btn-info mr-2" style="float:left;"> Edit </a>
 
-                                <div class="btn btn-danger">
-                                    Delete
-                                </div>
+                                <form action="{{ route('tags.delete',$tag->slug) }}" method="post">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger"> Delete </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -35,29 +38,5 @@
             </div>
         </div>
         
-
-        <div class="col-md-4">
-            <div class="card shadow p-5">
-                <div>
-                    <h4>Create Tag</h4>
-                    <hr>
-                </div>
-
-                <form action="{{ route('tags') }}" method="POST">
-                    @csrf
-
-                    <div class="mb-3">
-                      <label for="name" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="name" name="name">
-                      <div class="text-danger">
-                        @error('name')
-                            {{ $message }}
-                        @enderror
-                      </div>
-                    </div>
-                    <input type="submit" class="btn btn-primary" value="Add">
-                  </form>
-            </div>
-        </div>
     </div>
 @endsection

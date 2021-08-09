@@ -23,7 +23,9 @@
 </head>
 <body>
     <div id="app">
-        @include('layouts.navbar')
+        {{-- @if (!Route::is('login') && !Route::is('register') ) --}}
+            @include('layouts.navbar')
+        {{-- @endif --}}
 
         <div class="container">
             <main class="py-4">
